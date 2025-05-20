@@ -1,0 +1,298 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f4f7f9; /* Light gray background */
+    color: #333; /* Darker text for readability */
+    display: flex; /* Used to center .main-container */
+    justify-content: center; /* Used to center .main-container */
+    align-items: flex-start; /* Align .main-container to the top */
+    min-height: 100vh;
+    padding-top: 20px; /* Add some space at the top */
+}
+
+/* Layout Container */
+.main-container {
+    width: 100%;
+    max-width: 800px; /* Max width for the chat interface */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between model selector and chatbox */
+}
+
+/* Model Selector & Buttons */
+.model-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.model-selector-container label {
+    font-weight: 500;
+    color: #555;
+}
+
+#modelSelector,
+#clearHistoryButton,
+#settingsButton {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95em;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#modelSelector:hover,
+#clearHistoryButton:hover,
+#settingsButton:hover {
+    background-color: #f9f9f9;
+    border-color: #ccc;
+}
+
+#modelSelector:focus,
+#clearHistoryButton:focus,
+#settingsButton:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Chatbox */
+#chatbox {
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* Increased height */
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden; /* Ensures child elements conform to border-radius */
+}
+
+#messagesContainer {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between messages */
+}
+
+/* Messages */
+.user-message,
+.bot-message {
+    padding: 10px 15px;
+    border-radius: 18px; /* More rounded for bubble feel */
+    max-width: 75%;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff; /* Blue for user */
+    color: white;
+    border-bottom-right-radius: 4px; /* Slight variation for tail */
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e9ecef; /* Light gray for bot */
+    color: #333;
+    border-bottom-left-radius: 4px; /* Slight variation for tail */
+}
+
+.error-message {
+    background-color: #f8d7da; /* Bootstrap danger background */
+    color: #721c24; /* Bootstrap danger text */
+    border: 1px solid #f5c6cb; /* Bootstrap danger border */
+}
+/* Ensure error messages still look like bot messages but with error colors */
+.bot-message.error-message {
+    align-self: flex-start; /* Keep alignment if it's a bot-originated error */
+}
+
+
+/* Input Area */
+#input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f8f9fa; /* Slightly different background for input area */
+}
+
+#messageInput {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Pill shape */
+    margin-right: 10px;
+    font-size: 1em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#messageInput:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+#sendButton {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Pill shape */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#sendButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Settings Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Darker overlay */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; /* More centered vertically */
+    padding: 25px;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+.modal-content input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+
+#saveSettingsButton {
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    background-color: #28a745; /* Green for save */
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+#saveSettingsButton:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.close-button {
+    color: #888;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding-top: 10px;
+    }
+    .main-container {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .model-selector-container {
+        flex-direction: column; /* Stack controls vertically */
+        align-items: stretch; /* Make controls full width */
+        padding: 10px;
+    }
+
+    #chatbox {
+        height: 400px; /* Adjust height for smaller screens */
+    }
+
+    #messagesContainer {
+        padding: 15px;
+    }
+
+    .user-message, .bot-message {
+        max-width: 85%; /* Allow messages to be a bit wider */
+    }
+
+    #input-area {
+        padding: 10px;
+    }
+    #messageInput {
+        padding: 10px 12px;
+    }
+    #sendButton {
+        padding: 10px 15px;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+        padding: 20px;
+    }
+}
